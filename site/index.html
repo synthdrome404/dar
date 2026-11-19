@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Сайт гимназии ДАР</title>
+<meta name="robots" content="noindex,nofollow">
+<script>
+/* Hash routes for links from the proposal PDF: #a, #b, #a-fees, #b-admissions, #a-contacts, #b-visit … */
+(function () {
+  var SECTIONS = ['programs', 'kindergarten', 'primary', 'middle', 'senior', 'teachers', 'life', 'results', 'admissions', 'fees', 'parents', 'contacts'];
+  function target(hash) {
+    var m = /^#(a|b)(?:-([a-z]+))?$/.exec(hash || '');
+    if (!m) return null;
+    if (!m[2]) return m[1] + '/index.html';
+    if (m[2] === 'visit') return m[1] + '/admissions/index.html#visit';
+    if (SECTIONS.indexOf(m[2]) !== -1) return m[1] + '/' + m[2] + '/index.html';
+    return null;
+  }
+  function route() {
+    var t = target(location.hash);
+    if (!t) { document.documentElement.classList.remove('routing'); return; }
+    document.documentElement.classList.add('routing');
+    location.replace(t);
+  }
+  route();
+  window.addEventListener('hashchange', route);
+  window.addEventListener('pageshow', function (e) { if (e.persisted) document.documentElement.classList.remove('routing'); });
+})();
+</script>
+<link rel="stylesheet" href="dar-school.css">
+<style>
+  /* Layout: two large variant cards on brand paper; single brand look (light), colors set explicitly. */
+  :root { --ch-bg: #f7f3e9; --ch-ink: #1c2f22; --ch-green: #203e2b; --ch-gold: #79603d; --ch-card: #fffdf7; --ch-line: #d9d0bc; color-scheme: light; }
+  html.routing body { visibility: hidden; }
+  body { background: var(--ch-bg); color: var(--ch-ink); padding-bottom: 0; }
+  .chooser { max-width: 1240px; margin: 0 auto; padding-top: 56px; padding-bottom: 64px; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+  .ch-head { display: flex; align-items: center; gap: 20px; margin-bottom: 18px; }
+  .ch-head img { width: 64px; height: auto; }
+  .ch-head p { font: 600 15px/1.35 var(--sans); color: #4c5b4f; }
+  .chooser h1 { font-size: clamp(40px, 5vw, 68px); color: var(--ch-green); margin-bottom: 14px; }
+  .ch-lead { font-size: clamp(19px, 1.6vw, 22px); line-height: 1.5; max-width: 40em; margin-bottom: 40px; }
+  .ch-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+  .ch-card { display: flex; flex-direction: column; background: var(--ch-card); border: 1px solid var(--ch-line); border-radius: 14px; overflow: hidden; }
+  .ch-card > a.ch-shot { display: block; border-bottom: 1px solid var(--ch-line); }
+  .ch-card img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
+  .ch-body { display: flex; flex-direction: column; gap: 12px; padding: 26px 28px 30px; flex: 1; }
+  .ch-body .eyebrow { margin: 0; color: var(--ch-gold); }
+  .ch-body h2 { font-size: clamp(28px, 2.6vw, 38px); color: var(--ch-green); }
+  .ch-body p { color: #4c5b4f; }
+  .ch-body .actions { margin-top: auto; padding-top: 12px; }
+  .ch-quick { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 16px; }
+  .ch-quick a { color: var(--ch-green); font-weight: 700; text-decoration: underline; text-decoration-color: #9f825a; text-underline-offset: 4px; }
+  .ch-note { margin-top: 36px; font-size: 16px; color: #4c5b4f; max-width: 52em; }
+  @media (max-width: 800px) { .ch-grid { grid-template-columns: minmax(0, 1fr); } .chooser { padding-top: 32px; } .ch-body .btn { width: 100%; } }
+</style>
+<main class="chooser">
+  <div class="ch-head"><img src="assets/logo-concept.png" alt="Герб гимназии ДАР" width="64" height="68"><p>Гимназия Донского академического развития<br>Ростов-на-Дону</p></div>
+  <h1>Сайт гимназии ДАР</h1>
+  <p class="ch-lead">Два варианта нового сайта: детский сад и школа 1–11 классов. Выберите, какой посмотреть. Переключиться на другой вариант можно внизу любой страницы.</p>
+  <div class="ch-grid">
+    <article class="ch-card">
+      <a class="ch-shot" href="a/index.html" aria-hidden="true" tabindex="-1"><img src="assets/preview-a.jpg" alt="" width="1440" height="900"></a>
+      <div class="ch-body">
+        <p class="eyebrow">Вариант A · светлый</p>
+        <h2>«У каждого есть свой ДАР»</h2>
+        <p>Светлая бумага, фотографии в арках и короткая заставка: двери гимназии открываются и ведут на сайт.</p>
+        <div class="ch-quick"><a href="a/fees/index.html">Стоимость</a><a href="a/admissions/index.html">Поступление</a><a href="a/contacts/index.html">Контакты</a></div>
+        <div class="actions"><a class="btn" href="a/index.html">Открыть вариант A</a></div>
+      </div>
+    </article>
+    <article class="ch-card">
+      <a class="ch-shot" href="b/index.html" aria-hidden="true" tabindex="-1"><img src="assets/preview-b.jpg" alt="" width="1440" height="900"></a>
+      <div class="ch-body">
+        <p class="eyebrow">Вариант B · зелёный</p>
+        <h2>«Здесь растёт ваш ДАР»</h2>
+        <p>Глубокий зелёный цвет герба, рельефный герб на первом экране и классические заголовки.</p>
+        <div class="ch-quick"><a href="b/fees/index.html">Стоимость</a><a href="b/admissions/index.html">Поступление</a><a href="b/contacts/index.html">Контакты</a></div>
+        <div class="actions"><a class="btn" href="b/index.html">Открыть вариант B</a></div>
+      </div>
+    </article>
+  </div>
+  <p class="ch-note">Демо-концепция. Факты — с сайта gimnaziyadar.ru и из открытых документов гимназии. Стоимость показана как «уточняйте в приёмной», запись на экскурсию работает в демо-режиме и ничего не отправляет.</p>
+</main>
